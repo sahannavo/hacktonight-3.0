@@ -104,8 +104,7 @@ export function serviceFailure(reason: unknown) {
       message: issue.message,
       code: issue.code,
       detail: issue.detail,
-      trace: issue.stack,
-      databaseUrl: connectionString
+      trace: issue.stack
     },
     { status: 500 }
   )

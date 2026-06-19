@@ -27,12 +27,12 @@ export async function GET(request: Request) {
     )
 
     return Response.json({
-  ok: true,
-  message: 'System overview.',
-  users: users.rows,
-  accounts: accounts.rows,
-  auditLogs: logs.rows
-})
+      ok: true,
+      message: 'System overview.',
+      users: users.rows,
+      accounts: accounts.rows,
+      auditLogs: logs.rows
+    })
   } catch (reason) {
     return serviceFailure(reason)
   }

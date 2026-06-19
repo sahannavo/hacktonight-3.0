@@ -40,8 +40,14 @@ export async function POST(request: Request) {
 
     const user = result.rows[0]
     const headers = new Headers()
-    headers.append('set-cookie', `user_id=${user.id}; Path=/; HttpOnly; SameSite=Lax`)
-    headers.append('set-cookie', `role=${user.role}; Path=/; HttpOnly; SameSite=Lax`)
+    headers.append(
+      'set-cookie',
+      `user_id=${user.id}; Path=/; HttpOnly; SameSite=Lax`
+    )
+    headers.append(
+      'set-cookie',
+      `role=${user.role}; Path=/; HttpOnly; SameSite=Lax`
+    )
 
     return Response.json(
       {

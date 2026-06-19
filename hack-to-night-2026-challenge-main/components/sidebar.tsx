@@ -111,7 +111,13 @@ export default function Sidebar() {
       <div className="sidebar-top">
         {/* Logo */}
         <div className="logo-wrapper">
-          <Image src="/loginlogo.png" alt="Nova Bank logo" width={75} height={75} className="logo-img" />
+          <Image
+            src="/loginlogo.png"
+            alt="Nova Bank logo"
+            width={75}
+            height={75}
+            className="logo-img"
+          />
           <h1 className="brand-name">NOVA BANK</h1>
         </div>
 
@@ -120,9 +126,9 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const isActive = pathname === item.path
             return (
-              <Link 
-                key={item.label} 
-                href={item.path} 
+              <Link
+                key={item.label}
+                href={item.path}
                 className={`menu-item ${isActive ? 'active' : ''}`}
               >
                 {item.label === 'DASHBOARD' && <LayoutGrid size={18} />}

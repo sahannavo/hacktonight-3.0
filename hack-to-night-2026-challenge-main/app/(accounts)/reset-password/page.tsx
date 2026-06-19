@@ -30,7 +30,10 @@ export default function ResetPasswordPage() {
       const data = await res.json()
 
       if (!res.ok || !data.ok) {
-        setError(data.message ?? 'Password reset failed. Please check your OTP and try again.')
+        setError(
+          data.message ??
+            'Password reset failed. Please check your OTP and try again.'
+        )
         setLoading(false)
         return
       }
@@ -51,7 +54,10 @@ export default function ResetPasswordPage() {
         </h1>
 
         {success ? (
-          <p role="status" className="text-center text-lg font-semibold text-green-600">
+          <p
+            role="status"
+            className="text-center text-lg font-semibold text-green-600"
+          >
             Password reset successful! Redirecting to login…
           </p>
         ) : (
@@ -102,7 +108,10 @@ export default function ResetPasswordPage() {
             </div>
 
             {error && (
-              <p role="alert" className="mt-6 text-center text-sm font-semibold text-red-600">
+              <p
+                role="alert"
+                className="mt-6 text-center text-sm font-semibold text-red-600"
+              >
                 {error}
               </p>
             )}

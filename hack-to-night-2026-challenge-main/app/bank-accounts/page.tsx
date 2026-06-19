@@ -11,7 +11,13 @@ type Screen = 'list' | 'add' | 'edit'
 
 export default function AccountsPage() {
   return (
-    <Suspense fallback={<main className={styles.accountsPage}><Sidebar /></main>}>
+    <Suspense
+      fallback={
+        <main className={styles.accountsPage}>
+          <Sidebar />
+        </main>
+      }
+    >
       <AccountsContent />
     </Suspense>
   )

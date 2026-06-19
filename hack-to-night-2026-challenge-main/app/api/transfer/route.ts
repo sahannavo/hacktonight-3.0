@@ -4,19 +4,18 @@ import {
   pool,
   serviceFailure,
 } from "@/lib/platform-db";
+import {
+  parseCookies,
+  validateSessionToken,
+} from "@/lib/security";
 
-// Helper function to extract user_id from session cookies
+// Extract validated user ID from session token
 function getUserIdFromSession(request: Request): string | null {
-  const cookieHeader = request.headers.get("cookie") || "";
-  const cookies = cookieHeader.split(";").reduce(
-    (acc, cookie) => {
-      const [key, value] = cookie.trim().split("=");
-      if (key && value) acc[key] = value;
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-  return cookies.user_id || null;
+  const cookies = parseCookies(request.headers.get("cookie"));
+  const token = cookies.session || null;
+  if (!token) return null;
+  const session = validateSessionToken(token);
+  return session ? String(session.uid) : null;
 }
 
 export async function POST(request: Request) {

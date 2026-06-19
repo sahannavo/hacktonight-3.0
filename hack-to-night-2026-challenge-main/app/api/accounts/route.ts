@@ -4,37 +4,34 @@ import {
   pool,
   serviceFailure,
 } from "@/lib/platform-db";
+import {
+  parseCookies,
+  validateSessionToken,
+} from "@/lib/security";
 
-// Helper function to extract user_id from session cookies
+// Extract validated user ID from session token
 function getUserIdFromSession(request: Request): string | null {
-  const cookieHeader = request.headers.get("cookie") || "";
-  const cookies = cookieHeader.split(";").reduce(
-    (acc, cookie) => {
-      const [key, value] = cookie.trim().split("=");
-      if (key && value) acc[key] = value;
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-  return cookies.user_id || null;
+  const cookies = parseCookies(request.headers.get("cookie"));
+  const token = cookies.session || null;
+  if (!token) return null;
+  const session = validateSessionToken(token);
+  return session ? String(session.uid) : null;
 }
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url)
-
-    // SECURITY FIX: No longer default to userId=1 — require explicit param
-    const userId = asText(searchParams.get('userId'))
-    if (!userId) {
+    // SECURITY FIX: Authenticate via session token, not query param
+    const sessionUserId = getUserIdFromSession(request);
+    if (!sessionUserId) {
       return Response.json(
-        { ok: false, message: 'userId parameter is required.' },
-        { status: 400 }
-      )
+        { ok: false, message: 'Authentication required.' },
+        { status: 401 }
+      );
     }
 
     // SECURITY FIX: Removed includePins backdoor — PINs are never exposed via API
     // Only safe columns are selected; password and pin are never queried
-    await ensureDatabase()
+    await ensureDatabase();
     const result = await pool.query(
       `SELECT a.id, a.user_id, a.account_number, a.account_name, a.balance,
               u.username, u.full_name
@@ -50,9 +47,6 @@ export async function GET(request: Request) {
       note: "Account list prepared.",
       accounts: result.rows,
     });
-      note: 'Account list prepared.',
-      accounts: result.rows,
-    })
   } catch (reason) {
     return serviceFailure(reason);
   }

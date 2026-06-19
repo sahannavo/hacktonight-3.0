@@ -3,3 +3,17 @@ pre-commit:
     format:
       run: bunx biome format --no-errors-on-unmatched --write {staged_files}
       stage_fixed: true
+    # SECURITY: Scan for hardcoded secrets before allowing commit
+    secret-scan:
+      run: |
+        # Reject commits containing common secret patterns
+        if git diff --cached --no-color | grep -iE '(password|secret|api_key|token)\s*[:=]\s*["\x27][^"\x27]{4,}["\x27]'; then
+          echo "SECURITY ERROR: Potential hardcoded secret detected in staged changes."
+          echo "Use environment variables instead. If this is a false positive, use 'git commit --no-verify'."
+          exit 1
+        fi
+pre-commit:
+  commands:
+    format:
+      run: bunx biome format --no-errors-on-unmatched --write {staged_files}
+      stage_fixed: true

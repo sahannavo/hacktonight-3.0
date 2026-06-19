@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -110,7 +111,7 @@ export default function Sidebar() {
       <div className="sidebar-top">
         {/* Logo */}
         <div className="logo-wrapper">
-          <img src="/loginlogo.png" alt="logo" className="logo-img" />
+          <Image src="/loginlogo.png" alt="Nova Bank logo" width={75} height={75} className="logo-img" />
           <h1 className="brand-name">NOVA BANK</h1>
         </div>
 
@@ -119,11 +120,13 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const isActive = pathname === item.path
             return (
-              <Link key={item.label} href={item.path} className="menu-link">
-                <button className={`menu-item ${isActive ? 'active' : ''}`}>
-                  {item.label === 'DASHBOARD' && <LayoutGrid size={18} />}
-                  {item.label}
-                </button>
+              <Link 
+                key={item.label} 
+                href={item.path} 
+                className={`menu-item ${isActive ? 'active' : ''}`}
+              >
+                {item.label === 'DASHBOARD' && <LayoutGrid size={18} />}
+                {item.label}
               </Link>
             )
           })}
@@ -182,10 +185,6 @@ export default function Sidebar() {
           gap: 1rem;
         }
 
-        .menu-link {
-          text-decoration: none;
-        }
-
         .menu-item {
           height: 50px;
           border: none;
@@ -202,6 +201,7 @@ export default function Sidebar() {
           gap: 0.75rem;
           cursor: pointer;
           width: 100%;
+          text-decoration: none;
         }
 
         .menu-item.active {

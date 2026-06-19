@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -110,7 +111,7 @@ export default function Sidebar() {
       <div className="sidebar-top">
         {/* Logo */}
         <div className="logo-wrapper">
-          <img src="/loginlogo.png" alt="logo" className="logo-img" />
+          <Image src="/loginlogo.png" alt="Nova Bank logo" width={75} height={75} className="logo-img" />
           <h1 className="brand-name">NOVA BANK</h1>
         </div>
 

@@ -1,25 +1,70 @@
+'use client'
+
+import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { type FormEvent, useState } from 'react'
 import AuthButton from '@/components/authButton'
 
 export default function LoginPage() {
+  const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setError(null)
+    setLoading(true)
+
+    const formData = new FormData(e.currentTarget)
+    const username = formData.get('username') as string
+    const password = formData.get('password') as string
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+
+      const data = await res.json()
+
+      if (!res.ok || !data.ok) {
+        setError(data.message ?? 'Invalid username or password.')
+        setLoading(false)
+        return
+      }
+
+      router.push('/dashboard')
+    } catch {
+      setError('Network error. Please try again.')
+      setLoading(false)
+    }
+  }
+
   return (
     <section className="mx-auto flex min-h-[480px] w-full max-w-[1060px] overflow-hidden rounded-[56px] bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] lg:min-h-[660px]">
       <aside
         aria-label="Nova Bank shell artwork"
         className="relative hidden w-[46.2%] shrink-0 overflow-hidden bg-[#1d0730] md:block"
       >
-        <img
+        <Image
           src="/loginshellbg.png"
           alt=""
-          className="size-full object-cover"
+          fill
+          className="object-cover"
           aria-hidden="true"
+          priority
         />
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <img
+          <Image
             src="/loginlogo.png"
             alt="Nova Bank"
+            width={276}
+            height={276}
             className="w-[38%] max-w-[276px]"
+            priority
           />
         </div>
       </aside>
@@ -30,56 +75,76 @@ export default function LoginPage() {
             LOGIN
           </h1>
 
-          <div className="space-y-5">
-            <div className="relative">
-              <label className="sr-only" htmlFor="login-account">
-                Account name
-              </label>
-              <img
-                src="/person.png"
-                alt=""
-                aria-hidden="true"
-                className="-translate-y-1/2 absolute left-8 top-1/2 size-6"
-              />
-              <input
-                id="login-account"
-                placeholder="Account name"
-                className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
-              />
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="space-y-5">
+              <div className="relative">
+                <label className="sr-only" htmlFor="login-account">
+                  Account name
+                </label>
+                <Image
+                  src="/person.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={24}
+                  height={24}
+                  className="-translate-y-1/2 absolute left-8 top-1/2"
+                />
+                <input
+                  id="login-account"
+                  name="username"
+                  placeholder="Account name"
+                  autoComplete="username"
+                  required
+                  className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
+                />
+              </div>
+
+              <div className="relative">
+                <label className="sr-only" htmlFor="login-password">
+                  Password
+                </label>
+                <Image
+                  src="/password.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={24}
+                  height={24}
+                  className="-translate-y-1/2 absolute left-8 top-1/2"
+                />
+                <input
+                  id="login-password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                  required
+                  className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
+                />
+              </div>
             </div>
 
-            <div className="relative">
-              <label className="sr-only" htmlFor="login-password">
-                Password
-              </label>
-              <img
-                src="/password.png"
-                alt=""
-                aria-hidden="true"
-                className="-translate-y-1/2 absolute left-8 top-1/2 size-6"
-              />
-              <input
-                id="login-password"
-                type="password"
-                placeholder="Password"
-                className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
-              />
+            {error && (
+              <p role="alert" className="mt-3 text-sm font-semibold text-red-600">
+                {error}
+              </p>
+            )}
+
+            <div className="mt-3 text-right">
+              <Link
+                href="/reset-password"
+                className="text-sm font-bold text-black"
+              >
+                Forgot password?
+              </Link>
             </div>
-          </div>
 
-          <div className="mt-3 text-right">
-            <Link
-              href="/reset-password"
-              className="text-sm font-bold text-black"
-            >
-              Forgot password?
-            </Link>
-          </div>
-
-          <AuthButton className="mt-8">SIGN IN</AuthButton>
+            <AuthButton type="submit" className="mt-8" disabled={loading}>
+              {loading ? 'SIGNING IN…' : 'SIGN IN'}
+            </AuthButton>
+          </form>
 
           <p className="mt-6 text-sm font-bold text-black">
-            Don`t have an account?
+            Don&apos;t have an account?
           </p>
           <Link href="/sign-up" className="text-2xl font-bold text-black">
             SIGN UP

@@ -5,9 +5,10 @@ import React from 'react'
 type IconProps = {
   size?: number
   className?: string
+  children?: React.ReactNode
 } & React.SVGProps<SVGSVGElement>
 
-// ✅ FIXED: Replaced `: any` with proper `IconProps` type
+// ✅ FIXED: Replaced `: any` with proper `IconProps` type; children explicitly typed via IconProps
 const Icon = ({ children, size = 24, className, ...props }: IconProps) => (
   <svg
     width={size}

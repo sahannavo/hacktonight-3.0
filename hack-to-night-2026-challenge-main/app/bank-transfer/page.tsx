@@ -54,7 +54,7 @@ export default function Home() {
     // simulate transfer completion and show success page
     const conf = String(Math.floor(10000000 + Math.random() * 89999999))
     setConfirmation(conf)
-    setStep('success' as any)
+    setStep('success')
   }
 
   return (
@@ -194,7 +194,7 @@ export default function Home() {
                 </div>
                 <div className="flex justify-center gap-4">
                   <button
-                    onClick={() => setStep('failure')}
+                    onClick={() => setStep('form')}
                     className="next-btn"
                     aria-label="back"
                   >

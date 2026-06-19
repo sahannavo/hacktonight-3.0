@@ -1,9 +1,10 @@
-import { asText, runStatement, serviceFailure } from '@/lib/platform-db'
+import { asText, ensureDatabase, pool, serviceFailure } from '@/lib/platform-db'
 
 export async function GET() {
   try {
-    const result = await runStatement(
-      'SELECT id, username, password, role, full_name, nic, email FROM users ORDER BY id'
+    await ensureDatabase()
+    const result = await pool.query(
+      'SELECT id, username, role, full_name, nic, email FROM users ORDER BY id'
     )
 
     return Response.json({
@@ -22,38 +23,31 @@ export async function POST(request: Request) {
     const username = asText(body.username)
     const password = asText(body.password)
 
-    const sql = `
-      SELECT id, username, role, full_name, email
-      FROM users
-      WHERE username = '${username}' AND password = '${password}'
-      LIMIT 1
-    `
-    const result = await runStatement(sql)
+    const result = await pool.query(
+      `SELECT id, username, role, full_name, email
+       FROM users
+       WHERE username = $1 AND password = $2
+       LIMIT 1`,
+      [username, password]
+    )
 
     if (!result.rows[0]) {
       return Response.json(
-        {
-          ok: false,
-          message: 'Invalid login.',
-          sql
-        },
+        { ok: false, message: 'Invalid login.' },
         { status: 401 }
       )
     }
 
     const user = result.rows[0]
     const headers = new Headers()
-    headers.append('set-cookie', `user_id=${user.id}; Path=/; SameSite=Lax`)
-    headers.append('set-cookie', `role=${user.role}; Path=/; SameSite=Lax`)
+    headers.append('set-cookie', `user_id=${user.id}; Path=/; HttpOnly; SameSite=Lax`)
+    headers.append('set-cookie', `role=${user.role}; Path=/; HttpOnly; SameSite=Lax`)
 
     return Response.json(
       {
         ok: true,
-        token: Buffer.from(`${user.id}:${user.role}:session-token`).toString(
-          'base64'
-        ),
-        user,
-        sql
+        token: btoa(`${user.id}:${user.role}:session-token`),
+        user
       },
       { headers }
     )

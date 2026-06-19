@@ -280,14 +280,53 @@ function AccountsContent() {
               </div>
             </header>
 
+            <div className={styles.topSummary}>
+              <div className={styles.summaryCard}>
+                <div className={styles.summaryHeader}>
+                  <div>
+                    <p className={styles.summaryLabel}>Total linked accounts</p>
+                    <h2 className={styles.summaryValue}>3 Active</h2>
+                  </div>
+                  <span className={styles.summaryBadge}>Premium</span>
+                </div>
+                <p className={styles.summaryDescription}>
+                  Keep your main bank accounts connected, see your balances at a glance, and add new accounts in one tap.
+                </p>
+                <div className={styles.summaryStats}>
+                  <div className={styles.statCard}>
+                    <span>Combined Balance</span>
+                    <strong>$21,480</strong>
+                  </div>
+                  <div className={styles.statCard}>
+                    <span>Active Cards</span>
+                    <strong>2</strong>
+                  </div>
+                  <div className={styles.statCard}>
+                    <span>Due Alerts</span>
+                    <strong>1</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.quickActionsCard}>
+                <h3 className={styles.actionTitle}>Quick Actions</h3>
+                <p className={styles.actionDescription}>
+                  Jump straight into account management or connect a new card with secure linking.
+                </p>
+                <div className={styles.actionButtons}>
+                  <button className={styles.quickBtn} onClick={goToAdd}>
+                    Add Account
+                  </button>
+                  <button className={styles.quickBtnAlt}>
+                    Link Card
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div className={styles.cardsContainer}>
               <div className={styles.accountCard}>
-                <div className={styles.iconEdit} onClick={goToEdit}>
-                  ✏️
-                </div>
-                <div className={styles.iconDelete}>🗑️</div>
-                <div className={styles.accountCardContent}>
-                  <h2 className={styles.accountName}>Anura</h2>
+                <div className={styles.accountTopRow}>
                   <div className={styles.accountAvatar}>
                     <Image
                       src="/account-logo.png"
@@ -297,16 +336,34 @@ function AccountsContent() {
                       style={{ objectFit: 'cover', borderRadius: '50%' }}
                     />
                   </div>
+                  <div className={styles.accountTag}>Primary</div>
+                </div>
+                <div className={styles.accountCardContent}>
+                  <h2 className={styles.accountName}>Anura</h2>
                   <p className={styles.accountDetails}>
-                    Nova Bank <br />
-                    Colombo 05
+                    Nova Bank · Colombo 05
                   </p>
+                  <div className={styles.balanceRow}>
+                    <span className={styles.balanceLabel}>Available Balance</span>
+                    <strong className={styles.balanceAmount}>$9,580.00</strong>
+                  </div>
+                  <p className={styles.transactionHint}>Last payment received 2 days ago</p>
+                </div>
+                <div className={styles.cardFooter}>
+                  <button className={styles.cardButton} onClick={goToEdit}>
+                    Manage Account
+                  </button>
                 </div>
               </div>
 
               <button className={styles.addAccountCard} onClick={goToAdd}>
-                <h2 className={styles.addAccountTitle}>Add a Bank Account</h2>
-                <div className={styles.addAccountIcon}>+</div>
+                <div className={styles.addAccountContent}>
+                  <span className={styles.addAccountIcon}>+</span>
+                  <h2 className={styles.addAccountTitle}>Add a Bank Account</h2>
+                </div>
+                <p className={styles.addAccountSubtitle}>
+                  Add a new account to stay organized and receive smarter spending insights.
+                </p>
               </button>
             </div>
           </>

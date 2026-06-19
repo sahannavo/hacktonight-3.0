@@ -43,10 +43,10 @@ export default function LoginPage() {
   }
 
   return (
-    <section className="mx-auto flex min-h-[480px] w-full max-w-[1060px] overflow-hidden rounded-[56px] bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] lg:min-h-[660px]">
+    <section className="mx-auto flex min-h-[480px] w-full max-w-[1060px] overflow-hidden rounded-[56px] bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] lg:min-h-[660px] hover:shadow-[0_20px_50px_0_rgba(0,0,0,0.2)] transition-all duration-300">
       <aside
         aria-label="Nova Bank shell artwork"
-        className="relative hidden w-[46.2%] shrink-0 overflow-hidden bg-[#1d0730] md:block"
+        className="relative hidden w-[46.2%] shrink-0 overflow-hidden bg-gradient-to-br from-[#1d0730] to-[#3d1650] md:block shadow-[inset_-10px_0_30px_rgba(0,0,0,0.3)]"
       >
         <Image
           src="/loginshellbg.png"
@@ -69,9 +69,10 @@ export default function LoginPage() {
         </div>
       </aside>
 
-      <div className="flex flex-1 items-center justify-center bg-white px-8 py-10">
-        <div className="w-full max-w-[450px] text-center">
-          <h1 className="mb-11 text-[2.45rem] font-bold text-black text-balance">
+      <div className="flex flex-1 items-center justify-center bg-white px-8 py-10 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-purple-50/30 pointer-events-none"></div>
+        <div className="w-full max-w-[450px] text-center relative z-10">
+          <h1 className="mb-11 text-[2.45rem] font-bold text-black text-balance bg-gradient-to-r from-black to-purple-900 bg-clip-text text-transparent">
             LOGIN
           </h1>
 
@@ -95,7 +96,7 @@ export default function LoginPage() {
                   placeholder="Account name"
                   autoComplete="username"
                   required
-                  className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
+                  className="h-[64px] w-full rounded-[40px] border-2 border-transparent bg-gradient-to-br from-[#e8e8e8] to-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-all duration-300 placeholder:text-black/45 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)] focus:border-purple-400 focus:from-white focus:to-purple-50"
                 />
               </div>
 
@@ -118,7 +119,7 @@ export default function LoginPage() {
                   placeholder="Password"
                   autoComplete="current-password"
                   required
-                  className="h-[64px] w-full rounded-[40px] border-0 bg-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-shadow placeholder:text-black/45 focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)]"
+                  className="h-[64px] w-full rounded-[40px] border-2 border-transparent bg-gradient-to-br from-[#e8e8e8] to-[#d9d9d9] px-8 pl-20 text-lg text-black shadow-[0_1px_3px_0_rgba(0,0,0,0.30),0_4px_8px_3px_rgba(0,0,0,0.15)] outline-none transition-all duration-300 placeholder:text-black/45 hover:shadow-[0_4px_12px_rgba(0,0,0,0.25)] focus:shadow-[0_4px_4px_0_rgba(0,0,0,0.30),0_8px_12px_6px_rgba(0,0,0,0.15)] focus:border-purple-400 focus:from-white focus:to-purple-50"
                 />
               </div>
             </div>

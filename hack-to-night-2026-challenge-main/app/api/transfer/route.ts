@@ -1,50 +1,141 @@
-import { asText, ensureDatabase, pool, serviceFailure } from '@/lib/platform-db'
+import {
+  asText,
+  ensureDatabase,
+  pool,
+  serviceFailure,
+} from "@/lib/platform-db";
+
+// Helper function to extract user_id from session cookies
+function getUserIdFromSession(request: Request): string | null {
+  const cookieHeader = request.headers.get("cookie") || "";
+  const cookies = cookieHeader.split(";").reduce(
+    (acc, cookie) => {
+      const [key, value] = cookie.trim().split("=");
+      if (key && value) acc[key] = value;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+  return cookies.user_id || null;
+}
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => ({}))
-    const fromAccount = asText(body.fromAccount || body.from || '1000003423')
-    const toAccount = asText(body.toAccount || body.to)
-    const amount = asText(body.amount || '0')
-    const description = asText(body.description)
-    const userId = asText(body.userId || '1')
+    // Extract userId exclusively from session cookies
+    const sessionUserId = getUserIdFromSession(request);
+    if (!sessionUserId) {
+      return Response.json(
+        { ok: false, message: "Unauthorized. Please login." },
+        { status: 401 },
+      );
+    }
 
-    await ensureDatabase()
-    const client = await pool.connect()
+    const body = await request.json().catch(() => ({}));
+    const fromAccount = asText(body.fromAccount || body.from);
+    const toAccount = asText(body.toAccount || body.to);
+    const amountStr = asText(body.amount || "");
+    const description = asText(body.description);
+
+    // Validate required fields
+    if (!fromAccount || !toAccount) {
+      return Response.json(
+        {
+          ok: false,
+          message: "Missing required fields: fromAccount and toAccount.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Parse and validate amount
+    const amount = parseFloat(amountStr);
+    if (isNaN(amount)) {
+      return Response.json(
+        { ok: false, message: "Invalid amount format." },
+        { status: 400 },
+      );
+    }
+
+    // Validate amount is positive (reject negative amounts and zero)
+    if (amount <= 0) {
+      return Response.json(
+        { ok: false, message: "Transfer amount must be greater than 0." },
+        { status: 400 },
+      );
+    }
+
+    await ensureDatabase();
+    const client = await pool.connect();
     try {
-      await client.query('BEGIN')
+      // Verify from_account belongs to authenticated user and check balance
+      const fromAccountResult = await client.query(
+        `SELECT balance FROM accounts WHERE account_number = $1 AND user_id = $2`,
+        [fromAccount, sessionUserId],
+      );
+
+      if (fromAccountResult.rows.length === 0) {
+        return Response.json(
+          { ok: false, message: "From account not found or unauthorized." },
+          { status: 403 },
+        );
+      }
+
+      const currentBalance = parseFloat(fromAccountResult.rows[0].balance);
+
+      // Validate amount does not exceed balance
+      if (amount > currentBalance) {
+        return Response.json(
+          { ok: false, message: "Insufficient balance for transfer." },
+          { status: 400 },
+        );
+      }
+
+      // Verify to_account exists
+      const toAccountResult = await client.query(
+        `SELECT id FROM accounts WHERE account_number = $1`,
+        [toAccount],
+      );
+
+      if (toAccountResult.rows.length === 0) {
+        return Response.json(
+          { ok: false, message: "Recipient account not found." },
+          { status: 400 },
+        );
+      }
+
+      await client.query("BEGIN");
 
       await client.query(
         `UPDATE accounts SET balance = balance - $1 WHERE account_number = $2`,
-        [amount, fromAccount]
-      )
+        [amount, fromAccount],
+      );
 
       await client.query(
         `UPDATE accounts SET balance = balance + $1 WHERE account_number = $2`,
-        [amount, toAccount]
-      )
+        [amount, toAccount],
+      );
 
       const inserted = await client.query(
         `INSERT INTO transactions (from_account, to_account, amount, description, created_by)
          VALUES ($1, $2, $3, $4, $5)
          RETURNING *`,
-        [fromAccount, toAccount, amount, description, userId]
-      )
+        [fromAccount, toAccount, amount, description, sessionUserId],
+      );
 
-      await client.query('COMMIT')
+      await client.query("COMMIT");
 
       return Response.json({
         ok: true,
-        message: 'Transfer accepted.',
-        transaction: inserted.rows[0]
-      })
+        message: "Transfer accepted.",
+        transaction: inserted.rows[0],
+      });
     } catch (err) {
-      await client.query('ROLLBACK')
-      throw err
+      await client.query("ROLLBACK");
+      throw err;
     } finally {
-      client.release()
+      client.release();
     }
   } catch (reason) {
-    return serviceFailure(reason)
+    return serviceFailure(reason);
   }
 }

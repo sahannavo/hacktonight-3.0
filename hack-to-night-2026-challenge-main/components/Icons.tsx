@@ -5,9 +5,11 @@ import React from 'react'
 type IconProps = {
   size?: number
   className?: string
+  children?: React.ReactNode
 } & React.SVGProps<SVGSVGElement>
 
-const Icon = ({ children, size = 24, className, ...props }: any) => (
+// ✅ FIXED: Replaced `: any` with proper `IconProps` type; children explicitly typed via IconProps
+const Icon = ({ children, size = 24, className, ...props }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -67,6 +69,7 @@ export const ChevronRight = (p: IconProps) => (
     <polyline points="9 18 15 12 9 6" />
   </Icon>
 )
+
 export const ChevronLeft = (p: IconProps) => (
   <Icon {...p}>
     <polyline points="15 18 9 12 15 6" />

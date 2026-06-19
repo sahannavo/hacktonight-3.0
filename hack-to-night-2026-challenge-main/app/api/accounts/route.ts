@@ -42,7 +42,7 @@ export async function GET(request: Request) {
        JOIN users u ON u.id = a.user_id
        WHERE a.user_id = $1
        ORDER BY a.id`,
-      [sessionUserId],
+      [userId],
     );
 
     return Response.json({
@@ -50,9 +50,6 @@ export async function GET(request: Request) {
       note: "Account list prepared.",
       accounts: result.rows,
     });
-      note: 'Account list prepared.',
-      accounts: result.rows,
-    })
   } catch (reason) {
     return serviceFailure(reason);
   }

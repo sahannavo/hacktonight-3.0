@@ -5,7 +5,7 @@
  * a role-based access control matrix, and PII protection utilities.
  */
 
-import { randomBytes, scryptSync, timingSafeEqual } from 'node:crypto'
+import { randomBytes, scryptSync, timingSafeEqual } from 'crypto'
 
 // ─── Password Policy ────────────────────────────────────────────────
 

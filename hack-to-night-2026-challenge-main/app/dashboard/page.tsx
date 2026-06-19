@@ -103,7 +103,7 @@ export default function Dashboard() {
         .dashboard {
           width: 100vw;
           min-height: 100vh;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          background: linear-gradient(135deg, #f6ebf8 0%, #efd8f3 45%, #dac0e9 100%);
           display: flex;
           gap: 1.5rem;
           overflow: hidden;
@@ -115,7 +115,10 @@ export default function Dashboard() {
           padding: 40px;
           overflow-y: auto;
           min-width: 0;
-          background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.3) 100%);
+          background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(242, 227, 245, 0.88) 100%);
+          border: 1px solid rgba(147,85,146,0.18);
+          box-shadow: 0 30px 80px rgba(147,85,146,0.12);
+          border-radius: 34px;
         }
 
         .content-header {
@@ -259,7 +262,7 @@ export default function Dashboard() {
           width: 340px;
           max-width: calc(100% - 2rem);
           height: 140px;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 235, 247, 0.98) 100%);
           border-radius: 22px;
           color: #1d0730;
           display: flex;
@@ -267,15 +270,15 @@ export default function Dashboard() {
           justify-content: center;
           align-items: center;
           padding: 0 1.5rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-          border: 1px solid rgba(184, 134, 182, 0.2);
+          box-shadow: 0 10px 30px rgba(147, 85, 146, 0.14);
+          border: 1px solid rgba(147, 85, 146, 0.18);
           transition: all 0.3s ease;
           z-index: 10;
         }
 
         .balance-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 15px 40px rgba(147, 85, 146, 0.2);
+          box-shadow: 0 18px 45px rgba(147, 85, 146, 0.18);
         }
 
         .balance-label {
@@ -337,7 +340,7 @@ export default function Dashboard() {
 
         .dot.active {
           width: 28px;
-          background: white;
+          background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(230, 214, 243, 1) 100%);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
@@ -355,15 +358,15 @@ export default function Dashboard() {
           width: 280px;
           height: auto;
           min-height: 280px;
-          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(246, 234, 246, 0.96) 100%);
           border-radius: 28px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+          box-shadow: 0 20px 60px rgba(147,85,146,0.14);
           padding: 28px 20px;
-          color: black;
+          color: #1d0730;
           flex: 1;
           min-width: 200px;
           transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-          border: 1px solid rgba(184, 134, 182, 0.15);
+          border: 1px solid rgba(147, 85, 146, 0.18);
           position: relative;
           overflow: hidden;
         }
@@ -490,13 +493,13 @@ export default function Dashboard() {
         }
 
         .transactions-card {
-          background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+          background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(243, 231, 244, 0.95) 100%);
           border-radius: 28px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+          box-shadow: 0 20px 60px rgba(147,85,146,0.14);
           padding: 28px;
           max-width: 100%;
           overflow-x: auto;
-          border: 1px solid rgba(184, 134, 182, 0.15);
+          border: 1px solid rgba(147, 85, 146, 0.18);
           transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
           position: relative;
           overflow: hidden;
@@ -527,9 +530,9 @@ export default function Dashboard() {
           margin-bottom: 12px;
           gap: 16px;
           flex-wrap: wrap;
-          background: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.72);
           border-radius: 14px;
-          border: 1px solid rgba(184, 134, 182, 0.1);
+          border: 1px solid rgba(184, 134, 182, 0.14);
           transition: all 0.3s ease;
           position: relative;
           z-index: 1;

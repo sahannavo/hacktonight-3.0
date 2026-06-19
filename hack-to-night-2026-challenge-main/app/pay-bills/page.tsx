@@ -283,7 +283,7 @@ export default function PayBillsPage() {
         .page {
           display: flex;
           min-height: 100vh;
-          background: #f3f4f6;
+          background: linear-gradient(135deg, #eef3fb 0%, #f7edfb 100%);
         }
         .content {
           flex: 1;
@@ -294,20 +294,21 @@ export default function PayBillsPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background: white;
+          background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(244, 234, 247, 0.95) 100%);
           padding: 1.1rem 2.5rem;
-          border-bottom: 1px solid #eee;
+          border-bottom: 1px solid rgba(147,85,146,0.18);
+          backdrop-filter: blur(14px);
         }
         .topbar h1 {
           font-size: 1.25rem;
-          font-weight: 600;
-          color: #333;
+          font-weight: 700;
+          color: #1d0730;
         }
         .topbar-icons {
           display: flex;
           align-items: center;
           gap: 1.5rem;
-          color: #666;
+          color: #735277;
         }
         .avatar {
           width: 36px;
@@ -317,6 +318,7 @@ export default function PayBillsPage() {
           display: flex;
           align-items: center;
           justify-content: center;
+          border: 2px solid rgba(147,85,146,0.16);
         }
         .main {
           flex: 1;
@@ -329,10 +331,11 @@ export default function PayBillsPage() {
           max-width: 760px;
         }
         .card {
-          background: white;
-          border-radius: 24px;
-          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+          background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(244, 235, 247, 0.95) 100%);
+          border-radius: 30px;
+          box-shadow: 0 18px 50px rgba(147,85,146,0.12);
           padding: 3rem;
+          border: 1px solid rgba(147,85,146,0.18);
         }
         .biller-grid {
           display: grid;
@@ -344,9 +347,16 @@ export default function PayBillsPage() {
           flex-direction: column;
           align-items: center;
           gap: 0.65rem;
-          background: none;
-          border: none;
+          background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(244, 237, 249, 0.92) 100%);
+          border: 1px solid rgba(147,85,146,0.14);
+          border-radius: 24px;
+          padding: 1.25rem;
           cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .biller-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(147,85,146,0.12);
         }
         .biller-icon {
           width: 76px;
@@ -356,25 +366,27 @@ export default function PayBillsPage() {
           align-items: center;
           justify-content: center;
           transition: transform 0.15s, box-shadow 0.15s;
+          background: linear-gradient(135deg, #935592 0%, #b886b6 100%);
+          box-shadow: 0 12px 24px rgba(147,85,146,0.18);
         }
         .biller-icon.small {
           width: 48px;
           height: 48px;
+          background: rgba(147,85,146,0.12);
         }
         .logo-circle {
-          background: white;
-          border: 1px solid #eee;
+          background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(244, 237, 249, 0.95) 100%);
+          border: 1px solid rgba(147,85,146,0.14);
         }
         .biller-btn:hover .biller-icon {
-          transform: scale(1.07);
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+          transform: scale(1.08);
         }
         .biller-name {
           font-size: 0.82rem;
-          color: #555;
+          color: #1d0730;
           text-align: center;
           line-height: 1.25;
-          font-weight: 500;
+          font-weight: 600;
         }
         .back-btn {
           display: flex;
@@ -382,14 +394,14 @@ export default function PayBillsPage() {
           gap: 0.25rem;
           background: none;
           border: none;
-          color: #888;
-          font-size: 0.9rem;
+          color: #735277;
+          font-size: 0.95rem;
           cursor: pointer;
           margin-bottom: 1.75rem;
           padding: 0;
         }
         .back-btn:hover {
-          color: #555;
+          color: #935592;
         }
         .biller-header {
           display: flex;
@@ -398,37 +410,38 @@ export default function PayBillsPage() {
           margin-bottom: 2.25rem;
         }
         .biller-header-name {
-          font-weight: 600;
+          font-weight: 700;
           font-size: 1.05rem;
-          color: #333;
+          color: #1d0730;
         }
         .field {
           display: flex;
           flex-direction: column;
-          gap: 0.4rem;
+          gap: 0.55rem;
           margin-bottom: 1.4rem;
         }
         .field label {
-          font-size: 0.9rem;
-          color: #666;
-          font-weight: 500;
+          font-size: 0.95rem;
+          color: #735277;
+          font-weight: 600;
         }
         .field input {
-          background: #f3f4f6;
-          border: 1.5px solid transparent;
-          border-radius: 12px;
-          padding: 0.85rem 1.1rem;
+          background: rgba(147,85,146,0.06);
+          border: 1.5px solid rgba(147,85,146,0.18);
+          border-radius: 16px;
+          padding: 0.95rem 1.1rem;
           font-size: 0.95rem;
-          color: #333;
+          color: #1d0730;
           outline: none;
-          transition: box-shadow 0.15s, border-color 0.15s;
+          transition: box-shadow 0.2s, border-color 0.2s;
         }
         .field input:focus {
-          box-shadow: 0 0 0 2px #d8b9d6;
+          box-shadow: 0 0 0 3px rgba(147,85,146,0.12);
+          border-color: #935592;
         }
         .field input.input-error {
           border-color: #ef4444;
-          background: #fef2f2;
+          background: #fff1f2;
         }
         .error-text {
           font-size: 0.78rem;
@@ -438,18 +451,19 @@ export default function PayBillsPage() {
         .pay-now-btn {
           margin-top: 1.75rem;
           width: 100%;
-          background: #9a5c97;
+          background: linear-gradient(135deg, #935592 0%, #b886b6 100%);
           color: white;
-          font-weight: 600;
+          font-weight: 700;
           font-size: 1rem;
           padding: 1rem;
           border: none;
           border-radius: 999px;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.2s ease;
         }
         .pay-now-btn:hover {
-          background: #450043;
+          background: linear-gradient(135deg, #7b3e7a 0%, #935592 100%);
+          transform: translateY(-1px);
         }
         .status-card {
           display: flex;
@@ -457,6 +471,10 @@ export default function PayBillsPage() {
           align-items: center;
           text-align: center;
           padding: 4rem 3rem;
+          background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(244, 235, 247, 0.95) 100%);
+          border: 1px solid rgba(147,85,146,0.18);
+          border-radius: 28px;
+          box-shadow: 0 16px 46px rgba(147,85,146,0.12);
         }
         .status-circle {
           width: 112px;
@@ -468,41 +486,43 @@ export default function PayBillsPage() {
           margin-bottom: 1.75rem;
         }
         .status-circle.success {
-          background: #dcfce7;
-          color: #22c55e;
+          background: rgba(147,85,146,0.12);
+          color: #935592;
         }
         .status-circle.failed {
           background: #fee2e2;
-          color: #ef4444;
+          color: #c53030;
         }
         .status-card h2 {
           font-size: 1.4rem;
-          font-weight: 600;
-          color: #333;
+          font-weight: 700;
+          color: #1d0730;
           margin-bottom: 0.6rem;
         }
         .status-sub {
-          font-size: 0.9rem;
-          color: #999;
+          font-size: 0.95rem;
+          color: #6b7280;
           margin-bottom: 2.25rem;
           white-space: pre-line;
+          line-height: 1.7;
         }
         .back-home-btn {
           display: flex;
           align-items: center;
           gap: 0.4rem;
-          background: #9a5c97;
+          background: #935592;
           color: white;
           font-weight: 600;
           font-size: 0.9rem;
-          padding: 0.85rem 2.25rem;
+          padding: 0.95rem 2.25rem;
           border: none;
           border-radius: 999px;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: background 0.2s, transform 0.2s;
         }
         .back-home-btn:hover {
-          background: #450043;
+          background: #7b3e7a;
+          transform: translateY(-1px);
         }
       `}</style>
     </div>

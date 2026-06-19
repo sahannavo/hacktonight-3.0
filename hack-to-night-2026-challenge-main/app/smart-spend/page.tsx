@@ -10,11 +10,13 @@ export default function SmartSpendPage() {
         <Sidebar />
 
         <main className={styles.main}>
-          {/* Header */}
-          <div className={styles.header}>
+          <div className={styles.mainHeader}>
             <div>
-              <h2 className={styles.pageTitle}>Smart Spend</h2>
-              <p className={styles.pageSubtitle}>Track and optimize your spending</p>
+              <p className={styles.sectionLabel}>Smart Banking</p>
+              <h1 className={styles.pageTitle}>Smart Spend</h1>
+              <p className={styles.pageSubtitle}>
+                Colorful insights for smarter, faster money decisions.
+              </p>
             </div>
             <div className={styles.headerActions}>
               <button className={styles.iconBtn} aria-label="search">
@@ -24,140 +26,157 @@ export default function SmartSpendPage() {
                 <img src="/notification.png" alt="notifications" />
               </button>
               <div className={styles.avatarBox}>
-                <img
-                  src="/avatar.png"
-                  alt="avatar"
-                  className={styles.avatar}
-                />
+                <img src="/avatar.png" alt="avatar" className={styles.avatar} />
               </div>
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className={styles.contentGrid}>
-            {/* Welcome Card */}
-            <div className={`${styles.card} ${styles.welcomeCard}`}>
-              <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>Welcome to Smart Spend</h3>
-                <p className={styles.cardText}>
-                  Your intelligent spending assistant is ready to help you make smarter financial decisions
+          <div className={styles.heroGrid}>
+            <section className={`${styles.card} ${styles.heroCard}`}>
+              <div className={styles.heroContent}>
+                <span className={styles.heroBadge}>Smart Spend</span>
+                <h2 className={styles.heroTitle}>Track your spending with elegance</h2>
+                <p className={styles.heroText}>
+                  Get crisp monthly insights, category breakdowns, and spending tips wrapped in bright banking style.
                 </p>
-                <button className={styles.ctaButton}>Get Started</button>
+                <div className={styles.heroActions}>
+                  <button className={styles.primaryBtn}>View report</button>
+                  <button className={styles.secondaryBtn}>Explore tips</button>
+                </div>
               </div>
-              <div className={styles.cardIllustration}>
-                <div className={styles.illustrationCircle1}></div>
-                <div className={styles.illustrationCircle2}></div>
+              <div className={styles.heroVisual}>
+                <div className={styles.pillRow}>
+                  <div className={styles.pillPrimary}>Accounts</div>
+                  <div className={styles.pillAccent}>Savings</div>
+                </div>
+                <div className={styles.visualStats}>
+                  <div className={styles.visualStat}>
+                    <span>Total</span>
+                    <strong>$18.2K</strong>
+                  </div>
+                  <div className={styles.visualStat}>
+                    <span>Freed</span>
+                    <strong>$1.8K</strong>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
 
-            {/* Spending Summary */}
-            <div className={`${styles.card} ${styles.summaryCard}`}>
-              <h3 className={styles.cardTitle}>This Month Summary</h3>
+            <aside className={styles.summaryPanel}>
+              <div className={styles.panelCard}>
+                <p className={styles.panelLabel}>Balance</p>
+                <h3>$12,490</h3>
+                <p className={styles.panelNote}>Available across your linked accounts</p>
+              </div>
+              <div className={styles.panelCardAlt}>
+                <p className={styles.panelLabel}>Spend Score</p>
+                <h3>92%</h3>
+                <p className={styles.panelNote}>Excellent cashflow health</p>
+              </div>
+            </aside>
+          </div>
+
+          <div className={styles.contentGrid}>
+            <section className={`${styles.card} ${styles.statsCard}`}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Monthly Summary</h3>
+                <span className={styles.badge}>Live</span>
+              </div>
               <div className={styles.statsGrid}>
                 <div className={styles.statBox}>
-                  <div className={styles.statIcon}>💰</div>
-                  <div className={styles.statContent}>
+                  <div className={styles.statIcon}>💳</div>
+                  <div>
                     <p className={styles.statLabel}>Total Spent</p>
                     <p className={styles.statValue}>$2,450</p>
                   </div>
                 </div>
                 <div className={styles.statBox}>
-                  <div className={styles.statIcon}>📊</div>
-                  <div className={styles.statContent}>
-                    <p className={styles.statLabel}>Budget Used</p>
-                    <p className={styles.statValue}>68%</p>
+                  <div className={styles.statIcon}>🏦</div>
+                  <div>
+                    <p className={styles.statLabel}>Saved</p>
+                    <p className={styles.statValue}>$720</p>
+                  </div>
+                </div>
+                <div className={styles.statBox}>
+                  <div className={styles.statIcon}>📈</div>
+                  <div>
+                    <p className={styles.statLabel}>Goal Progress</p>
+                    <p className={styles.statValue}>76%</p>
                   </div>
                 </div>
               </div>
-            </div>
+              <div className={styles.usageChart}>
+                <div className={styles.usageHeader}>
+                  <span>Spending trend</span>
+                  <strong>+12% this month</strong>
+                </div>
+                <div className={styles.usageBarContainer}>
+                  <div className={styles.usageBar} style={{ width: '65%' }}></div>
+                </div>
+              </div>
+            </section>
 
-            {/* Categories */}
-            <div className={`${styles.card} ${styles.categoriesCard}`}>
-              <h3 className={styles.cardTitle}>Spending Categories</h3>
-              <div className={styles.categoryList}>
-                <div className={styles.categoryItem}>
-                  <div className={`${styles.categoryIcon} ${styles.foodIcon}`}>🍔</div>
-                  <div className={styles.categoryInfo}>
-                    <p className={styles.categoryName}>Food & Dining</p>
-                    <p className={styles.categoryAmount}>$520</p>
-                  </div>
-                  <div className={styles.categoryBar}>
-                    <div className={styles.categoryProgress} style={{ width: '42%' }}></div>
+            <section className={`${styles.card} ${styles.categoriesCard}`}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Top Categories</h3>
+                <span className={styles.badgeAlt}>Insights</span>
+              </div>
+              <div className={styles.categoryGrid}>
+                <div className={styles.categoryCard}>
+                  <span className={styles.categoryIcon}>🍽️</span>
+                  <p className={styles.categoryName}>Food & Dining</p>
+                  <strong>$520</strong>
+                </div>
+                <div className={styles.categoryCard}>
+                  <span className={styles.categoryIcon}>🚗</span>
+                  <p className={styles.categoryName}>Transport</p>
+                  <strong>$380</strong>
+                </div>
+                <div className={styles.categoryCard}>
+                  <span className={styles.categoryIcon}>🛍️</span>
+                  <p className={styles.categoryName}>Shopping</p>
+                  <strong>$620</strong>
+                </div>
+                <div className={styles.categoryCard}>
+                  <span className={styles.categoryIcon}>🎬</span>
+                  <p className={styles.categoryName}>Entertainment</p>
+                  <strong>$330</strong>
+                </div>
+              </div>
+            </section>
+
+            <section className={`${styles.card} ${styles.insightCard}`}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Spending Recommendations</h3>
+              </div>
+              <ul className={styles.insightList}>
+                <li>Move recurring subscriptions to a dedicated savings bucket.</li>
+                <li>Use cash for small daily expenses to avoid higher fees.</li>
+                <li>Set alerts for entertainment spending above $200.</li>
+              </ul>
+            </section>
+
+            <section className={`${styles.card} ${styles.featureCard}`}>
+              <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Next Up</h3>
+              </div>
+              <div className={styles.featureGrid}>
+                <div className={styles.featureBlock}>
+                  <span className={styles.featureEmoji}>⚡</span>
+                  <div>
+                    <strong>Faster budgets</strong>
+                    <p>Auto-budget updates in real time.</p>
                   </div>
                 </div>
-
-                <div className={styles.categoryItem}>
-                  <div className={`${styles.categoryIcon} ${styles.transportIcon}`}>🚗</div>
-                  <div className={styles.categoryInfo}>
-                    <p className={styles.categoryName}>Transportation</p>
-                    <p className={styles.categoryAmount}>$380</p>
-                  </div>
-                  <div className={styles.categoryBar}>
-                    <div className={styles.categoryProgress} style={{ width: '31%' }}></div>
-                  </div>
-                </div>
-
-                <div className={styles.categoryItem}>
-                  <div className={`${styles.categoryIcon} ${styles.shoppingIcon}`}>🛍️</div>
-                  <div className={styles.categoryInfo}>
-                    <p className={styles.categoryName}>Shopping</p>
-                    <p className={styles.categoryAmount}>$620</p>
-                  </div>
-                  <div className={styles.categoryBar}>
-                    <div className={styles.categoryProgress} style={{ width: '50%' }}></div>
-                  </div>
-                </div>
-
-                <div className={styles.categoryItem}>
-                  <div className={`${styles.categoryIcon} ${styles.entertainmentIcon}`}>🎬</div>
-                  <div className={styles.categoryInfo}>
-                    <p className={styles.categoryName}>Entertainment</p>
-                    <p className={styles.categoryAmount}>$330</p>
-                  </div>
-                  <div className={styles.categoryBar}>
-                    <div className={styles.categoryProgress} style={{ width: '27%' }}></div>
+                <div className={styles.featureBlock}>
+                  <span className={styles.featureEmoji}>🛡️</span>
+                  <div>
+                    <strong>Secure alerts</strong>
+                    <p>Instant notifications for unusual spend.</p>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Tips & Insights */}
-            <div className={`${styles.card} ${styles.tipsCard}`}>
-              <h3 className={styles.cardTitle}>💡 Smart Tips</h3>
-              <div className={styles.tipsList}>
-                <div className={styles.tipItem}>
-                  <span className={styles.tipNumber}>1</span>
-                  <p>Set monthly budgets for each category to stay in control</p>
-                </div>
-                <div className={styles.tipItem}>
-                  <span className={styles.tipNumber}>2</span>
-                  <p>Review your spending weekly to catch unusual patterns</p>
-                </div>
-                <div className={styles.tipItem}>
-                  <span className={styles.tipNumber}>3</span>
-                  <p>Use cashback and rewards programs to maximize savings</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Features Coming Soon */}
-            <div className={`${styles.card} ${styles.featureCard}`}>
-              <h3 className={styles.cardTitle}>🚀 Coming Soon</h3>
-              <div className={styles.featureList}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureBadge}>✓</div>
-                  <p>AI-powered spending insights</p>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureBadge}>✓</div>
-                  <p>Personalized savings recommendations</p>
-                </div>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureBadge}>✓</div>
-                  <p>Budget alerts & notifications</p>
-                </div>
-              </div>
-            </div>
+            </section>
           </div>
         </main>
       </div>

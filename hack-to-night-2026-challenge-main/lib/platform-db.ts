@@ -9,6 +9,7 @@ export const pool = new Pool({
   max: 3
 })
 
+
 let booted = false
 
 const schema = `

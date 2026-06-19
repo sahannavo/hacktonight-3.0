@@ -144,7 +144,7 @@ export default function LoginPage() {
           </form>
 
           <p className="mt-6 text-sm font-bold text-black">
-            Don&apos;t have an account?
+            Don't have an account?
           </p>
           <Link href="/sign-up" className="text-2xl font-bold text-black">
             SIGN UP
